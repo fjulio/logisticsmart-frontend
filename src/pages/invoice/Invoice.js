@@ -97,6 +97,8 @@ class Invoice extends React.Component {
         width: "",
         equipmentLong: "",
         requisition: "",
+        expectedEntryDate: "",
+        emailTo: "",
         invoice: {
           id: "",
           dateInvoice: "",
@@ -281,11 +283,18 @@ class Invoice extends React.Component {
   }
 
   componentDidMount = async () => {
-    await this.getCountries();
-    await this.getAll();
     if (!cookies.get('token')) {
       window.location.href = "./";
     }
+    await this.getCountries();
+    await this.getAll();
+    this.setState({
+      equipment: {
+        ...this.state.equipment,
+        emailTo: cookies.get('email')
+      }
+    });
+    
   }
 
   render() {
@@ -298,17 +307,17 @@ class Invoice extends React.Component {
           <br />
           <Snackbar open={this.state.showAlert}>
             <Alert icon={<CheckIcon fontSize="inherit" />} severity="success" onClose={this.handleClick}>
-            Purchase Order was successfully created
+              Purchase Order was successfully created
             </Alert>
           </Snackbar>
           <Snackbar open={this.state.showAlertDelete}>
             <Alert icon={<WarningOutlined></WarningOutlined>} severity="warning" onClose={this.handleClickAlertDelete}>
-            Purchase Order was successfully removed
+              Purchase Order was successfully removed
             </Alert>
           </Snackbar>
           <Snackbar open={this.state.showAlertUpdate}>
             <Alert icon={<InfoOutlined></InfoOutlined>} severity="info" onClose={this.handleClickAlertUpdate}>
-            Purchase Order was successfully updated
+              Purchase Order was successfully updated
             </Alert>
           </Snackbar>
           <Box component="form"
@@ -364,8 +373,8 @@ class Invoice extends React.Component {
                     <TableCell align="right">{data.amount}</TableCell>
                     <TableCell align="right">{data.price}</TableCell>
                     <TableCell align="right">
-                      <IconButton color="primary" onClick={() => this.handleOpenUpdate(data)}><Edit/></IconButton>{" "}
-                      <IconButton color="error" onClick={() => this.delete(data)}><Delete/></IconButton>{" "}
+                      <IconButton color="primary" onClick={() => this.handleOpenUpdate(data)}><Edit /></IconButton>{" "}
+                      <IconButton color="error" onClick={() => this.delete(data)}><Delete /></IconButton>{" "}
                       <IconButton color="success" onClick={() => this.handleOpenEquipment(data)}><AddCircleRounded /></IconButton>
                     </TableCell>
                   </TableRow>
@@ -738,19 +747,14 @@ class Invoice extends React.Component {
               />
               {"    "}
               <TextField
-                id="invoiceId"
-                label="invoice Id"
+                id="expectedEntryDate"
+                label="Expected Entry Date"
                 variant="filled"
-                name="id"
-                onChange={this.handleChangeEquipmentInvoice}
-                disabled
-                value={this.state.id}
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      #
-                    </InputAdornment>
-                  ),
+                name="expectedEntryDate"
+                onChange={this.handleChangeEquipment}
+                type="date"
+                InputLabelProps={{
+                  shrink: true,
                 }}
               />
             </div>

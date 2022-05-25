@@ -36,7 +36,7 @@ class Login extends React.Component{
                 cookies.set('email', response.email, {path: "/"});
                 cookies.set('roles', response.roles, {path: "/"});
                 cookies.set('token', response.jwt, {path: "/"});
-                window.location.href = "./equipment";
+                window.location.href = "./home";
             }else{
                 alert('El usuario o la contraseña no son cocrrectos');
             }
@@ -49,7 +49,7 @@ class Login extends React.Component{
 
     componentDidMount(){
         if(cookies.get('token')){
-            window.location.href = "./menu";
+            window.location.href = "./home";
         }
     }
 

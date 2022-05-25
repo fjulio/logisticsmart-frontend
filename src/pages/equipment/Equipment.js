@@ -117,6 +117,7 @@ class Equipment extends React.Component {
                 realEntryDate: "",
                 realDepartureDate: "",
                 location: { id: "" },
+                emailTo: "",
                 equipment: {
                     id: "",
                     requisition: ""
@@ -407,6 +408,12 @@ class Equipment extends React.Component {
         if (!cookies.get('token')) {
             window.location.href = "./";
         }
+        this.setState({
+            entry: {
+              ...this.state.entry,
+              emailTo: cookies.get('email')
+            }
+          });
     }
 
     render() {

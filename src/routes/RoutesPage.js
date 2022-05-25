@@ -7,6 +7,8 @@ import Equipment from '../pages/equipment/Equipment';
 import Invoice from '../pages/invoice/Invoice';
 import Location from '../pages/location/Location';
 import Entry from '../pages/entry/Entry';
+import Menu from '../pages/menu/Menu';
+import Notification from '../pages/notification/Notification';
 
 function RoutesPage(){
     return (
@@ -18,6 +20,8 @@ function RoutesPage(){
                 <Route exact path="/requisition" element={<Invoice/>}/>
                 <Route exact path="/location" element={<Location/>}/>
                 <Route exact path="/entry" element={<Entry/>}/>
+                <Route exact path="/home" element={<Menu/>}/>
+                <Route exact path="/notification" element={<Notification/>}/>
             </Routes>
         </Router>
     );
